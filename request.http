@@ -1,11 +1,16 @@
 ### hello world test
 GET http://localhost:3000/
 
-###
+### Getting all list titles
 GET http://localhost:3000/api/lists
 
-###
-GET http://localhost:3000/api/lists/0
+
+### Getting a single list with its items
+GET http://localhost:3000/api/lists/1
+
+### Getting a another list with its items
+GET http://localhost:3000/api/lists/3
+
 
 ###
 POST http://localhost:3000/api/lists
