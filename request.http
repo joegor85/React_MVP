@@ -1,0 +1,32 @@
+### hello world test
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/api/lists
+
+###
+GET http://localhost:3000/api/lists/0
+
+###
+POST http://localhost:3000/api/lists
+Content-Type: application/json
+
+{
+    "listName": "garden"
+}
+
+###
+POST http://localhost:3000/api/items
+Content-Type: application/json
+
+{
+    "list": 4,
+    "itemName": "garden",
+    "itemName": "tomatoes"
+}
+
+###
+DELETE http://localhost:3000/api/lists/4
+
+###
+DELETE http://localhost:3000/api/items/7

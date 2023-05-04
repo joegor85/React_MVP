@@ -1,0 +1,1 @@
+Welcome to my first React Full stack project! I plan to make a list manager that allows you to create multiple lists and be able to edit them to keep track of all of the lists in your life!
