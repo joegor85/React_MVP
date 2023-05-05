@@ -1,24 +1,59 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
+import ListOfLists from "./ListOfLists";
+import ListDisplay from "./ListDisplay";
 
 function App() {
   const [count, setCount] = useState(0)
+  const [lists, setLists] = useState([]);
+  const [selectedList, setSelectedList] = useState(null);
+  const [selectedListData, setSelectedListData] = useState([]);
+    
+  const fetchTitleData = () => {
+      return fetch("http://localhost:3000/api/lists").then((response) => response.json()).then((data) => {
+          console.log(data);
+          setLists(data)});
+      }
+      
+      //fetching the list titles when the App loads
+      useEffect(() => {
+        fetchTitleData();
+      }, [])
+      
+      //Check to make sure I logged the right list_id when clicked
+      useEffect(() => {
+        console.log(selectedList);
+      }, [selectedList]);
+      
+      const fetchSpecificListData = () => {
+        return fetch(`http://localhost:3000/api/lists/${selectedList}`).then((response) => response.json()).then((listData) => {
+          setSelectedListData(listData);
+        })
+      }
+
+      //Fetch data for a list when selected
+      useEffect(() => {
+        if (selectedList !== null) {
+          fetchSpecificListData();
+        }
+      }, [selectedList]);
+
+      //Check to make sure I logged the right listData
+      useEffect(() => {
+      console.log(selectedListData);
+      }, [selectedListData]);
+
 
   return (
     <>
       <h1>Joe's List Manager</h1>
       <button>+</button>
-      <div className="listNames"><h2>List1</h2><h2>List2</h2><h2>List3</h2></div>
-      <div className="listDisplay">
-        <h2>List title:</h2>
-        <div className="listItemContainer">
-          <h3>List item1</h3>
-          <h3>List item2</h3>
-          <h3>List item3</h3>
-        </div>
-      </div>
+      < ListOfLists lists={lists} selectedList={selectedList} setSelectedList={setSelectedList}/>
+
+      < ListDisplay selectedList={selectedList} selectedListData={selectedListData}/>
+
     </>
   )
 }

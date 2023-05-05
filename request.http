@@ -9,7 +9,7 @@ GET http://localhost:3000/api/lists
 GET http://localhost:3000/api/lists/1
 
 ### Getting a another list with its items
-GET http://localhost:3000/api/lists/3
+GET http://localhost:3000/api/lists/2
 
 
 ### Create a new list title

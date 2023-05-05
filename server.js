@@ -6,6 +6,9 @@ dotenv.config();
 const { Pool } = require("pg");
 const { restart } = require("nodemon");
 const connectionString = process.env.DATABASE_URL;
+const cors = require("cors");
+app.use(cors());
+
 const pool = new Pool({
   connectionString: connectionString,
 });
@@ -35,11 +38,11 @@ app.get("/api/lists/:id", (req, res) => {
   }
   pool
     .query(
-      `SELECT l.listname, json_agg(i.itemname) AS items
-    FROM lists l
-    JOIN items i ON l.list_id = i.list
-    WHERE l.list_id = $1
-    GROUP BY l.listname;`,
+      `SELECT l.list_id, l.listname, json_agg(json_build_object('id', i.id, 'name', i.itemname)) AS items
+      FROM lists l
+      LEFT JOIN items i ON l.list_id = i.list
+      WHERE l.list_id = $1
+      GROUP BY l.list_id;`,
       [id]
     )
     .then((result) => {
@@ -49,6 +52,7 @@ app.get("/api/lists/:id", (req, res) => {
         return;
       } else {
         let data = {
+          list_id: result.rows[0].list_id,
           listname: result.rows[0].listname,
           items: result.rows[0].items,
         };
@@ -134,11 +138,14 @@ app.delete("/api/items/:id", (req, res) => {
       res
         .status(204)
         // .send(result.rows[0])
-        .json({ message: `Item ${itemId} deleted.`, deletedItemId: deletedItem.id })
-      })
-      .catch((error) => {
-        restart.status(500).send(error.message);
-      });
+        .json({
+          message: `Item ${itemId} deleted.`,
+          deletedItemId: deletedItem.id,
+        });
+    })
+    .catch((error) => {
+      restart.status(500).send(error.message);
+    });
 });
 
 // Start the app listening on a port
