@@ -28,16 +28,16 @@ Content-Type: application/json
     "listName": "Sprouts"
 }
 
-###
+### Adding a new item to a list
 POST http://localhost:3000/api/items
 Content-Type: application/json
 
 {
-    "list": 4,
+    "list": 6,
     "itemName": "green beans"
 }
 
-###
+### Adding another new item
 POST http://localhost:3000/api/items
 Content-Type: application/json
 
@@ -46,8 +46,9 @@ Content-Type: application/json
     "itemName": "tomatoes"
 }
 
-###
-DELETE http://localhost:3000/api/lists/4
+### Deleting a list
+DELETE http://localhost:3000/api/lists/7
 
-###
-DELETE http://localhost:3000/api/items/7
+
+### Deleting a single item
+DELETE http://localhost:3000/api/items/12

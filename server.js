@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000;
 const dotenv = require("dotenv");
 dotenv.config();
 const { Pool } = require("pg");
+const { restart } = require("nodemon");
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
   connectionString: connectionString,
@@ -82,7 +83,7 @@ app.post("/api/items", (req, res) => {
       itemName,
     ])
     .then((result) => {
-      res.status(201).send(result.rows[0]);
+      res.status(201).send(JSON.stringify(result.rows[0]) + " created");
     });
 });
 
@@ -111,7 +112,7 @@ app.delete("/api/lists/:id", (req, res) => {
         )
         .then((result) => {
           console.log(result.rows[0]);
-          res.status(204).send(`${result.rows[0]} deleted`);
+          res.status(204).send(result.rows[0]);
         })
         .catch((error) => {
           res.status(500).send(error.message);
@@ -120,6 +121,24 @@ app.delete("/api/lists/:id", (req, res) => {
     .catch((error) => {
       res.status(500).send(error.message);
     });
+});
+
+// A route for deleting individual list items
+app.delete("/api/items/:id", (req, res) => {
+  const itemId = req.params.id;
+  pool
+    .query(`DELETE FROM items WHERE id = $1 RETURNING *;`, [itemId])
+    .then((result) => {
+      const deletedItem = result.rows[0];
+      console.log(deletedItem);
+      res
+        .status(204)
+        // .send(result.rows[0])
+        .json({ message: `Item ${itemId} deleted.`, deletedItemId: deletedItem.id })
+      })
+      .catch((error) => {
+        restart.status(500).send(error.message);
+      });
 });
 
 // Start the app listening on a port

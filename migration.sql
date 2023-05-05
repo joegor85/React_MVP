@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS lists;
 DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS lists;
 
 CREATE TABLE lists (
     list_id serial PRIMARY KEY,
