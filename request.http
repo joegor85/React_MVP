@@ -12,12 +12,20 @@ GET http://localhost:3000/api/lists/1
 GET http://localhost:3000/api/lists/3
 
 
-###
+### Create a new list title
 POST http://localhost:3000/api/lists
 Content-Type: application/json
 
 {
-    "listName": "garden"
+    "listName": "Garden"
+}
+
+### Create another new list title
+POST http://localhost:3000/api/lists
+Content-Type: application/json
+
+{
+    "listName": "Sprouts"
 }
 
 ###
@@ -26,7 +34,15 @@ Content-Type: application/json
 
 {
     "list": 4,
-    "itemName": "garden",
+    "itemName": "green beans"
+}
+
+###
+POST http://localhost:3000/api/items
+Content-Type: application/json
+
+{
+    "list": 4,
     "itemName": "tomatoes"
 }
 
