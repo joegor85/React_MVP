@@ -1,3 +1,4 @@
+/* ---------------------------------Default from Vite-------------------------- */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,20 @@
 
 .read-the-docs {
   color: #888;
+}
+/* ----------------------------------Default from Vite-------------------------- */
+
+.listNames {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listItemContainer {
+  background-color: beige;
+  color: black;
+}
+
+h3 {
+  border: 1px solid black;
+  margin: 0px;
 }
