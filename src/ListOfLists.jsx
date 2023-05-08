@@ -1,3 +1,4 @@
+import trash from './assets/trash.png'
 
 const ListOfLists = (props) => {
     function handleTitleClick(listId) {
@@ -5,10 +6,26 @@ const ListOfLists = (props) => {
         // console.log(props.selectedList);  --this doesn't work because it's async, so place this in useEffect on App level instead
     }
 
+const deleteList = async (listId) => {
+    try {
+        await fetch(`http://localhost:3000/api/lists/${listId}`, {
+          method: "DELETE",
+          });
+        await props.fetchTitleData();
+      } catch (error) {
+        console.error("Error deleting list:", error);
+      }
+}
+
     return (
     <div className="listNames">
         {props.lists.map((list) => (
-            <h2 className="listTitles" key={list.list_id} onClick={() => handleTitleClick(list.list_id)}>{list.listname}</h2>
+
+            <div key={list.list_id}>
+            <h2 className="listTitles" onClick={() => handleTitleClick(list.list_id)}>{list.listname}</h2>
+            <button className="trash" onClick={() => deleteList(list.list_id)}><img className="trashCan" src={trash}></img></button>
+            </div>
+
         ))}
         {/* old hard-coded stuff: */}
         {/* <h2>List1</h2><h2>List2</h2><h2>List3</h2> */}

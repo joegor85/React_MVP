@@ -20,7 +20,7 @@ Content-Type: application/json
     "listName": "Garden"
 }
 
-### Create another new list title
+### Create another new list
 POST http://localhost:3000/api/lists
 Content-Type: application/json
 

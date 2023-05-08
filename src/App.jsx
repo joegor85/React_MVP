@@ -20,16 +20,17 @@ function App() {
       });
   };
 
-  //fetching the list titles when the App loads
+//fetching the list titles when the App loads
   useEffect(() => {
     fetchTitleData();
   }, []);
 
-  //Check to make sure I logged the right list_id when clicked
+//Check to make sure I logged the right list_id when clicked
   useEffect(() => {
     console.log(selectedList);
   }, [selectedList]);
 
+// Pull a specific list's data from the server when clicked on
   const fetchSpecificListData = () => {
     return fetch(`http://localhost:3000/api/lists/${selectedList}`)
       .then((response) => response.json())
@@ -37,6 +38,24 @@ function App() {
         setSelectedListData(listData);
       });
   };
+
+// Add a new list to the database when clicking the add(+) button
+  const addNewList = async () => {
+    let newList = window.prompt("Enter a new list name:");
+    try {
+      await fetch("http://localhost:3000/api/lists", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "listName": newList
+      }),
+      });
+      await fetchTitleData();
+    } catch (error) {
+      console.error("Error adding list:", error);
+    }
+  }
+
 
   //Fetch data for a list when selected
   useEffect(() => {
@@ -53,11 +72,12 @@ function App() {
   return (
     <>
       <h1>Joe's List Manager</h1>
-      <button>+</button>
+      <button className="listTitles" onClick={addNewList}>+</button>
       <ListOfLists
         lists={lists}
         selectedList={selectedList}
         setSelectedList={setSelectedList}
+        fetchTitleData={fetchTitleData}
       />
 
       <ListDisplay

@@ -60,7 +60,7 @@ h3 {
   color: black;
 }
 
-.listTitles {
+.listTitles, .trash {
   /* border: 1px dashed beige;
   padding: 10px; */
   border-radius: 8px;
@@ -73,6 +73,16 @@ h3 {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-.listTitles:hover {
+.listTitles:hover, .trash:hover {
   border-color: #646cff;
+}
+
+.trashCan {
+  /* transform: scale(0.05); */
+  width: 25%;
+  height: 25%;
+}
+
+.trash {
+  background-color: black;
 }
