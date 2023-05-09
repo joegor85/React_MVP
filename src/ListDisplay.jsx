@@ -21,6 +21,8 @@ const ListDisplay = (props) => {
   };
 
   const deleteItem = async (itemId) => {
+    const answer = window.confirm("Are you sure you want to delete this item?");
+    if (answer) {
     try {
       await fetch(`http://localhost:3000/api/items/${itemId}`, {
         method: "DELETE",
@@ -29,6 +31,9 @@ const ListDisplay = (props) => {
     } catch (error) {
       console.error("Error deleting item:", error);
     }
+  } else {
+    return;
+  }
   };
 
   return (
