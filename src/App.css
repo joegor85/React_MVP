@@ -54,7 +54,7 @@
 }
 
 h3 {
-  border: 1px solid black;
+  /* width: 70%; */
   margin: 0px;
   background-color: beige;
   color: black;
@@ -79,10 +79,35 @@ h3 {
 
 .trashCan {
   /* transform: scale(0.05); */
-  width: 25%;
-  height: 25%;
+  width: 25px;
+  height: 25px;
 }
 
 .trash {
   background-color: black;
+}
+
+.whiteTrash {
+  display: flex;
+  background-color: beige;
+  border: 0px;
+  /* width: 10%; */
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.whiteTrashCan {
+  background-color: beige;
+  width: 25px;
+  height: 25px;
+}
+
+.eachItem {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addItem {
+  cursor: pointer;
 }

@@ -6,7 +6,7 @@ import ListOfLists from "./ListOfLists";
 import ListDisplay from "./ListDisplay";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState(null);
   const [selectedListData, setSelectedListData] = useState([]);
