@@ -1,4 +1,4 @@
-# React MVP: Joe's List Maker
+# React MVP: Joe's List Manager
 
 This is my first full-stack application utilizing React. I decided to keep the concept simple to focus on developing react skills. Therefore, I created a list manager for those people who like to make lists for all aspects of their life!
 
